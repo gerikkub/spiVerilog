@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="spiHwTest_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="spiHwTest" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="1738211207fs"></ZoomStartTime>
+      <ZoomEndTime time="1776357759fs"></ZoomEndTime>
+      <Cursor1Time time="1770000000fs"></Cursor1Time>
+   </zoom_setting>
+   <WVObjectSize size="16" />
+   <wvobject fp_name="/spiHwTest/clock" type="logic">
+      <obj_property name="ElementShortName">clock</obj_property>
+      <obj_property name="ObjectShortName">clock</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spiHwTest/sclk" type="logic">
+      <obj_property name="ElementShortName">sclk</obj_property>
+      <obj_property name="ObjectShortName">sclk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spiHwTest/mosi" type="logic">
+      <obj_property name="ElementShortName">mosi</obj_property>
+      <obj_property name="ObjectShortName">mosi</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spiHwTest/inData" type="array">
+      <obj_property name="ElementShortName">inData[7:0]</obj_property>
+      <obj_property name="ObjectShortName">inData[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spiHwTest/reset" type="logic">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spiHwTest/cs" type="logic">
+      <obj_property name="ElementShortName">cs</obj_property>
+      <obj_property name="ObjectShortName">cs</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spiHwTest/miso" type="logic">
+      <obj_property name="ElementShortName">miso</obj_property>
+      <obj_property name="ObjectShortName">miso</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spiHwTest/outData" type="array">
+      <obj_property name="ElementShortName">outData[7:0]</obj_property>
+      <obj_property name="ObjectShortName">outData[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spiHwTest/valid" type="logic">
+      <obj_property name="ElementShortName">valid</obj_property>
+      <obj_property name="ObjectShortName">valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spiHwTest/writeReg" type="logic">
+      <obj_property name="ElementShortName">writeReg</obj_property>
+      <obj_property name="ObjectShortName">writeReg</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spiHwTest/spi/sr/writeP" type="logic">
+      <obj_property name="ElementShortName">writeP</obj_property>
+      <obj_property name="ObjectShortName">writeP</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spiHwTest/spi/bitCounterReg" type="array">
+      <obj_property name="ElementShortName">bitCounterReg[3:0]</obj_property>
+      <obj_property name="ObjectShortName">bitCounterReg[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spiHwTest/regNum" type="array">
+      <obj_property name="ElementShortName">regNum[6:0]</obj_property>
+      <obj_property name="ObjectShortName">regNum[6:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spiHwTest/spi/ctrlUnit/ctrlState" type="array">
+      <obj_property name="ElementShortName">ctrlState[1:0]</obj_property>
+      <obj_property name="ObjectShortName">ctrlState[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spiHwTest/spi/ctrlUnit/nextState" type="array">
+      <obj_property name="ElementShortName">nextState[1:0]</obj_property>
+      <obj_property name="ObjectShortName">nextState[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spiHwTest/spi/ctrlUnit/regValidState" type="logic">
+      <obj_property name="ElementShortName">regValidState</obj_property>
+      <obj_property name="ObjectShortName">regValidState</obj_property>
+   </wvobject>
+</wave_config>
