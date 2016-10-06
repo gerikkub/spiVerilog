@@ -34,7 +34,9 @@ module SPICtrlUnit(
               CtrlStateWriteReg1 = 'd1,
               CtrlStateWriteReg2 = 'd2,
               CtrlStateIncRegnum = 'd3,
-              CtrlStateWaitNextByte = 'd4;
+              CtrlStateWriteShiftReg1 = 'd4,
+              CtrlStateWriteShiftReg2 = 'd5,
+              CtrlStateWaitNextByte = 'd6;
 
     parameter MaxReadSpiRegNum = 'd5,
               MaxSpiRegNum = 'd10;
@@ -42,8 +44,8 @@ module SPICtrlUnit(
     parameter RegValidStateInvalid = 'd0,
               RegValidStateValid = 'd1;
               
-    reg [2:0]ctrlState = CtrlStateWait;
-    reg [2:0]nextState = CtrlStateWait;
+    reg [7:0]ctrlState = CtrlStateWait;
+    reg [7:0]nextState = CtrlStateWait;
     reg regValidState = RegValidStateInvalid;
 
     reg [6:0]spiRegNum = 'd0;
@@ -57,78 +59,106 @@ module SPICtrlUnit(
 
     always @(negedge clk)
     begin
-        ctrlState = nextState;
+        ctrlState <= nextState;
 
-        if (ctrlState == CtrlStateIncRegnum)
+        if (chipSelect == 'd1)
         begin
-            spiRegNum = spiRegNum + 'd1;
+            spiRegNum <= 'd0;
+        end else begin
+            if (ctrlState == CtrlStateIncRegnum)
+            begin
+                spiRegNum <= spiRegNum + 'd1;
 
-            if (spiRegNum >= MaxSpiRegNum)
+                if (spiRegNum >= MaxSpiRegNum)
+                begin
+                    regValidState <= RegValidStateValid;
+                end else if (spiRegNum > MaxReadSpiRegNum)
+                begin
+                    regValidState <= RegValidStateInvalid;
+                end
+
+            end else
             begin
-                regValidState = RegValidStateValid;
-            end else if (spiRegNum > MaxReadSpiRegNum)
-            begin
-                regValidState = RegValidStateInvalid;
+                spiRegNum <= spiRegNum;
             end
-
-        end else
-        begin
-            spiRegNum = spiRegNum;
         end
-    end
-
-    always @(chipSelect)
-    begin
-        spiRegNum = 'd0;
     end
 
     always @(*)
     begin
         if (chipSelect == 'd1)
         begin
-            nextState = CtrlStateWait;
+            nextState <= CtrlStateWriteShiftReg1;
+
+            writeShiftRegReg <= 'd0;
+            writeRegReg <= 'd0;
         end else begin
+
             case (ctrlState)
                 CtrlStateWait:
                 begin
-                    writeShiftRegReg = 'd0;
-                    writeRegReg = 'd0;
+                    writeShiftRegReg <= 'd0;
+                    writeRegReg <= 'd0;
                     if (byteRead == 'd1)
                     begin
-                        nextState = CtrlStateWriteReg1;
+                        nextState <= CtrlStateWriteReg1;
                     end else begin
-                        nextState = CtrlStateWait;
+                        nextState <= CtrlStateWait;
                     end
                 end
+
                 CtrlStateWriteReg1:
                 begin
-                    writeShiftRegReg = 'd0;
-                    writeRegReg = 'd1;
-                    nextState = CtrlStateWriteReg2;
+                    writeShiftRegReg <= 'd0;
+                    writeRegReg <= 'd1;
+                    nextState <= CtrlStateWriteReg2;
                 end
+                
                 CtrlStateWriteReg2:
                 begin
-                    writeShiftRegReg = 'd0;
-                    writeRegReg = 'd1;
-                    nextState = CtrlStateIncRegnum;
+                    writeShiftRegReg <= 'd0;
+                    writeRegReg <= 'd1;
+                    nextState <= CtrlStateIncRegnum;
                 end
+
                 CtrlStateIncRegnum:
                 begin
-                    writeShiftRegReg = 'd0;
-                    writeRegReg = 'd0;
-                    nextState = CtrlStateWaitNextByte;
+                    writeShiftRegReg <= 'd0;
+                    writeRegReg <= 'd0;
+                    nextState <= CtrlStateWriteShiftReg1;
                 end
+
+                CtrlStateWriteShiftReg1:
+                begin
+                    writeShiftRegReg <= 'd1;
+                    writeRegReg <= 'd0;
+                    nextState <= CtrlStateWriteShiftReg2;
+                end
+
+                CtrlStateWriteShiftReg2:
+                begin
+                    writeShiftRegReg <= 'd1;
+                    writeRegReg <= 'd0;
+                    nextState <= CtrlStateWaitNextByte;
+                end
+
                 CtrlStateWaitNextByte:
                 begin
-                    writeShiftRegReg = 'd1;
-                    writeRegReg = 'd0;
+                    writeShiftRegReg <= 'd0;
+                    writeRegReg <= 'd0;
                     
                     if (byteRead == 'd1)
                     begin
-                        nextState = CtrlStateWaitNextByte;
+                        nextState <= CtrlStateWaitNextByte;
                     end else begin
-                        nextState = CtrlStateWait;
+                        nextState <= CtrlStateWait;
                     end
+                end
+                default:
+                begin
+                    nextState <= CtrlStateWait;
+                    writeShiftRegReg <= 'd0;
+                    writeRegReg <= 'd0;
                 end
             endcase
         end

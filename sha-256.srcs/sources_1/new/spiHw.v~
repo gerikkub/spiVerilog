@@ -31,7 +31,8 @@ module spiHw(
     output [7:0] outData,
     output valid,
     output writeReg,
-    output [6:0]regNum
+    output [6:0]regNum,
+    output [3:0]bitCount
     );
 
     wire writePWire;
@@ -41,6 +42,8 @@ module spiHw(
     wire counterResetWire;
 
     reg [3:0]bitCounterReg = 'd0;
+
+    assign bitCount = bitCounterReg;
     
     shiftRegister sr (
         .clk(sclk),
@@ -70,9 +73,6 @@ module spiHw(
     // writing the old value to a register
     // assign writePWire = bitCounterReg[3] & (~writeReg);
 
-    // Only run the counter when chip select is low
-    assign counterClkGated = sclk & (~cs);
-
     assign counterResetWire = sclk & bitCounterReg[3];
     
     /*
@@ -90,23 +90,21 @@ module spiHw(
     */
 
     // Increase the bit count on the negative sclk edge
-    always @(counterClkGated)
+    always @(negedge sclk)
     begin
         if (cs == 'd1)
         begin
-            bitCounterReg = 'd0;
-        end else if (counterResetWire == 'd1 && counterClkGated == 'd1)
+            bitCounterReg <= 'd0;
+        end else
         begin
-            bitCounterReg = 'd0;
-        end  else if (counterClkGated == 'd0)
-        begin
-            bitCounterReg = bitCounterReg + 'd1;
-        end else 
-        begin
-            bitCounterReg = bitCounterReg;
+            if (bitCounterReg == 'd8)
+            begin
+                bitCounterReg <= 'd1;
+            end else
+            begin
+                bitCounterReg <= bitCounterReg + 'd1;
+            end
+        end
     end
-
-
-
 
 endmodule

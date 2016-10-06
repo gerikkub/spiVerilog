@@ -27,7 +27,7 @@
 // Active low writeClk sync writeP
 
 module shiftRegister(
-    input clk,
+    input sclk,
     input writeClk,
     input reset,
     input dIn,
@@ -36,30 +36,91 @@ module shiftRegister(
     output dOut,
     output [7:0] pOut
     );
+    
+    parameter StateWaitForHigh = 'd0,
+              StateWaitForFalling = 'd1;
 
     reg [7:0]internal = 'd0;
-    reg dOutReg = 'd0;
     reg [7:0]pReg = 'd0;
+    reg dOutReg = 'd0;
+    reg srState = StateWaitForHigh;
 
-    always @(clk)
+    assign pOut = internal;
+    assign dOut = dOutReg;
+
+    always @(negedge writeClk)
     begin
+        if (reset == 'd0)
+        begin
+            srState <= StateWaitForHigh;
+
+            internal <= 'd0;
+            dOutReg <= 'd0;
+        end else if (writeP == 'd1)
+        begin
+            internal[7:0] <= pIn;
+            dOutReg <= 'd0;
+
+            if (sclk == 'd0)
+            begin
+                srState <= StateWaitForHigh;
+            end else
+            begin
+                srState <= StateWaitForFalling;
+            end
+        end else 
+        begin
+            if (srState == StateWaitForHigh)
+            begin
+                if (sclk == 'd0)
+                begin
+                    srState <= StateWaitForHigh;
+
+                    dOutReg <= dOutReg;
+                end else begin
+                    srState <= StateWaitForFalling;
+
+                    dOutReg <= internal[7];
+                end
+
+                internal <= internal;
+            end else
+            begin
+                if (sclk == 'd0)
+                begin
+                    internal <= {internal[7:0], dIn};
+
+                    srState <= StateWaitForHigh;
+                end else begin
+                    internal <= internal;
+
+                    srState <= StateWaitForFalling;
+                end
+
+                dOutReg <= dOutReg;
+            end
+        end
+
+        /*
         if (clk == 'd0)
         begin
             if (reset == 'd0)
             begin
-                internal = 'd0;
+                internal <= 'd0;
             end else
             begin
-                internal = {internal[6:0], dIn};
+                internal <= {internal[7:0], dIn};
             end
         end else begin
-            dOutReg = internal[7];
-            
             if (writeP == 'd1)
             begin
-                internal = pIn;
+                internal[7:0] <= pIn;
+            end else
+            begin
+                internal <= internal;
             end
         end
+        */
     end
 
     /*
@@ -77,7 +138,5 @@ module shiftRegister(
     end
     */
 
-    assign pOut = internal;
-    assign dOut = dOutReg;
 
 endmodule

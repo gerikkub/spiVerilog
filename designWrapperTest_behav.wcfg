@@ -3,7 +3,7 @@
    <wave_state>
    </wave_state>
    <db_ref_list>
-      <db_ref path="designWrapperTest_behav.wdb" id="1">
+      <db_ref path="designWrapperTest_func_synth.wdb" id="1">
          <top_modules>
             <top_module name="designWrapperTest" />
             <top_module name="glbl" />
@@ -11,11 +11,11 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="232284264fs"></ZoomEndTime>
-      <Cursor1Time time="8580000000fs"></Cursor1Time>
+      <ZoomStartTime time="3271699540798fs"></ZoomStartTime>
+      <ZoomEndTime time="3280424062444fs"></ZoomEndTime>
+      <Cursor1Time time="6000000000000fs"></Cursor1Time>
    </zoom_setting>
-   <WVObjectSize size="17" />
+   <WVObjectSize size="20" />
    <wvobject fp_name="/designWrapperTest/clock" type="logic">
       <obj_property name="ElementShortName">clock</obj_property>
       <obj_property name="ObjectShortName">clock</obj_property>
@@ -40,48 +40,60 @@
       <obj_property name="ElementShortName">miso</obj_property>
       <obj_property name="ObjectShortName">miso</obj_property>
    </wvobject>
-   <wvobject fp_name="/designWrapperTest/dw/regFile/registers" type="array">
-      <obj_property name="ElementShortName">registers[9:0][7:0]</obj_property>
-      <obj_property name="ObjectShortName">registers[9:0][7:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/designWrapperTest/dw/spiInputData" type="array">
-      <obj_property name="ElementShortName">spiInputData[7:0]</obj_property>
-      <obj_property name="ObjectShortName">spiInputData[7:0]</obj_property>
-   </wvobject>
    <wvobject fp_name="/designWrapperTest/dw/spiOutputData" type="array">
       <obj_property name="ElementShortName">spiOutputData[7:0]</obj_property>
       <obj_property name="ObjectShortName">spiOutputData[7:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/designWrapperTest/dw/regFileWrite" type="logic">
-      <obj_property name="ElementShortName">regFileWrite</obj_property>
-      <obj_property name="ObjectShortName">regFileWrite</obj_property>
+   <wvobject fp_name="/designWrapperTest/bitCount" type="array">
+      <obj_property name="ElementShortName">bitCount[3:0]</obj_property>
+      <obj_property name="ObjectShortName">bitCount[3:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/designWrapperTest/dw/regFileNum" type="array">
-      <obj_property name="ElementShortName">regFileNum[6:0]</obj_property>
-      <obj_property name="ObjectShortName">regFileNum[6:0]</obj_property>
+   <wvobject fp_name="/designWrapperTest/dw/regFile/\registers_reg[0] " type="array">
+      <obj_property name="ElementShortName">\registers_reg[0] [7:0]</obj_property>
+      <obj_property name="ObjectShortName">\registers_reg[0] [7:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/designWrapperTest/dw/spi/sr/internal" type="array">
-      <obj_property name="ElementShortName">internal[7:0]</obj_property>
-      <obj_property name="ObjectShortName">internal[7:0]</obj_property>
+   <wvobject fp_name="/designWrapperTest/dw/regFile/\registers_reg[1] " type="array">
+      <obj_property name="ElementShortName">\registers_reg[1] [7:0]</obj_property>
+      <obj_property name="ObjectShortName">\registers_reg[1] [7:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/designWrapperTest/dw/spi/inData" type="array">
-      <obj_property name="ElementShortName">inData[7:0]</obj_property>
-      <obj_property name="ObjectShortName">inData[7:0]</obj_property>
+   <wvobject fp_name="/designWrapperTest/dw/regFile/\registers_reg[2] " type="array">
+      <obj_property name="ElementShortName">\registers_reg[2] [7:0]</obj_property>
+      <obj_property name="ObjectShortName">\registers_reg[2] [7:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/designWrapperTest/dw/regFile/regANum" type="array">
-      <obj_property name="ElementShortName">regANum[6:0]</obj_property>
-      <obj_property name="ObjectShortName">regANum[6:0]</obj_property>
+   <wvobject fp_name="/designWrapperTest/dw/regFile/\registers_reg[3] " type="array">
+      <obj_property name="ElementShortName">\registers_reg[3] [7:0]</obj_property>
+      <obj_property name="ObjectShortName">\registers_reg[3] [7:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/designWrapperTest/dw/regFile/reset" type="logic">
-      <obj_property name="ElementShortName">reset</obj_property>
-      <obj_property name="ObjectShortName">reset</obj_property>
+   <wvobject fp_name="/designWrapperTest/dw/regFile/\registers_reg[4] " type="array">
+      <obj_property name="ElementShortName">\registers_reg[4] [7:0]</obj_property>
+      <obj_property name="ObjectShortName">\registers_reg[4] [7:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/designWrapperTest/dw/regFile/clk" type="logic">
-      <obj_property name="ElementShortName">clk</obj_property>
-      <obj_property name="ObjectShortName">clk</obj_property>
+   <wvobject fp_name="/designWrapperTest/dw/regFile/\registers_reg[5] " type="array">
+      <obj_property name="ElementShortName">\registers_reg[5] [7:0]</obj_property>
+      <obj_property name="ObjectShortName">\registers_reg[5] [7:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/designWrapperTest/dw/regFile/i" type="array">
-      <obj_property name="ElementShortName">i[31:0]</obj_property>
-      <obj_property name="ObjectShortName">i[31:0]</obj_property>
+   <wvobject fp_name="/designWrapperTest/dw/regFile/\registers_reg[6] " type="array">
+      <obj_property name="ElementShortName">\registers_reg[6] [7:0]</obj_property>
+      <obj_property name="ObjectShortName">\registers_reg[6] [7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/designWrapperTest/dw/regFile/\registers_reg[7] " type="array">
+      <obj_property name="ElementShortName">\registers_reg[7] [7:0]</obj_property>
+      <obj_property name="ObjectShortName">\registers_reg[7] [7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/designWrapperTest/dw/regFile/\registers_reg[8] " type="array">
+      <obj_property name="ElementShortName">\registers_reg[8] [7:0]</obj_property>
+      <obj_property name="ObjectShortName">\registers_reg[8] [7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/designWrapperTest/dw/regFile/\registers_reg[9] " type="array">
+      <obj_property name="ElementShortName">\registers_reg[9] [7:0]</obj_property>
+      <obj_property name="ObjectShortName">\registers_reg[9] [7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/designWrapperTest/dw/spi/sr/E" type="array">
+      <obj_property name="ElementShortName">E[0:0]</obj_property>
+      <obj_property name="ObjectShortName">E[0:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/designWrapperTest/dw/spi/ctrlUnit/ctrlState" type="array">
+      <obj_property name="ElementShortName">ctrlState[2:0]</obj_property>
+      <obj_property name="ObjectShortName">ctrlState[2:0]</obj_property>
    </wvobject>
 </wave_config>

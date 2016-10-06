@@ -31,6 +31,9 @@ module designWrapperTest (
     reg cs = 'd1;
 
     wire miso;
+    wire [3:0]bitCount;
+    wire slowClkWire;
+    wire resOut;
 
     designWrapper dw (
         .CLK100MHZ(clock),
@@ -38,14 +41,17 @@ module designWrapperTest (
         .miso(miso),
         .mosi(mosi),
         .cs(cs),
-        .reset(reset)
+        .reset(reset),
+        .bitCount(bitCount),
+        .slowClkWire(slowClkWire),
+        .resOut(resOut)
     );
 
     always
     begin
-        #2
+        #500
         clock = 'd0;
-        #2
+        #500
         clock = 'd1;
     end
 
@@ -56,49 +62,49 @@ module designWrapperTest (
             // Send first byte
             mosi = dataToSend[7];
             sclk = 'd1;
-            #10
+            #16700
             sclk = 'd0;
-            #10
+            #16700
 
             mosi = dataToSend[6];
             sclk = 'd1;
-            #10
+            #16700
             sclk = 'd0;
-            #10
+            #16700
 
             mosi = dataToSend[5];
             sclk = 'd1;
-            #10
+            #16700
             sclk = 'd0;
-            #10
+            #16700
 
             mosi = dataToSend[4];
             sclk = 'd1;
-            #10
+            #16700
             sclk = 'd0;
-            #10
+            #16700
 
             mosi = dataToSend[3];
             sclk = 'd1;
-            #10
+            #16700
             sclk = 'd0;
-            #10
+            #16700
 
             mosi = dataToSend[2];
             sclk = 'd1;
-            #10
+            #16700
             sclk = 'd0;
-            #10
+            #16700
 
             mosi = dataToSend[1];
             sclk = 'd1;
-            #10
+            #16700
             sclk = 'd0;
-            #10
+            #16700
 
             mosi = dataToSend[0];
             sclk = 'd1;
-            #10
+            #16700
             sclk = 'd0;
         end
     endtask
@@ -116,23 +122,23 @@ module designWrapperTest (
         input [7:0]byte10;
         begin
             send_byte(byte1);
-            #10
+            #40000
             send_byte(byte2);
-            #10
+            #40000
             send_byte(byte3);
-            #10
+            #40000
             send_byte(byte4);
-            #10
+            #40000
             send_byte(byte5);
-            #10
+            #40000
             send_byte(byte6);
-            #10
+            #40000
             send_byte(byte7);
-            #10
+            #40000
             send_byte(byte8);
-            #10
+            #40000
             send_byte(byte9);
-            #10
+            #40000
             send_byte(byte10);
         end
     endtask
@@ -145,13 +151,13 @@ module designWrapperTest (
         input [7:0]byte5;
         begin
             send_byte(byte1);
-            #10
+            #40000
             send_byte(byte2);
-            #10
+            #40000
             send_byte(byte3);
-            #10
+            #40000
             send_byte(byte4);
-            #10
+            #40000
             send_byte(byte5);
         end
     endtask
@@ -166,79 +172,79 @@ module designWrapperTest (
         input [7:0]byte7;
         begin
             send_byte(byte1);
-            #10
+            #40000
             send_byte(byte2);
-            #10
+            #40000
             send_byte(byte3);
-            #10
+            #40000
             send_byte(byte4);
-            #10
+            #40000
             send_byte(byte5);
-            #10
+            #40000
             send_byte(byte6);
-            #10
+            #40000
             send_byte(byte7);
         end
     endtask
 
 
     initial begin
-        #10
+        #40000
         // Reset Module
         reset = 'd0;
-        #10
+        #16700
         sclk = 'd1;
-        #10
+        #16700
         sclk = 'd0;
-        #10
+        #16700
 
         // Set CS low
         cs = 'd0;
         reset = 'd1;
 
-        #10
+        #16700
 
         send_allReg('d1, 'd2, 'd3, 'd4, 'd5, 'd6, 'd7, 'd8, 'd9, 'd10);
 
-        #10
+        #16700
         cs = 'd1;
-        #10
+        #16700
         cs = 'd0;
-        #10
+        #16700
 
         send_allReg('d11, 'd12, 'd13, 'd14, 'd15, 'd16, 'd17, 'd18, 'd19, 'd20);
 
-        #10
+        #16700
         cs = 'd1;
-        #10
+        #16700
 
         send_allReg('d11, 'd12, 'd13, 'd14, 'd15, 'd16, 'd17, 'd18, 'd19, 'd20);
 
-        #10
+        #16700
         cs = 'd0;
-        #10
+        #16700
 
         send_readReg('d0, 'd0, 'd0, 'd0, 'd0);
 
-        #10
+        #16700
         cs = 'd1;
-        #10
+        #16700
         cs = 'd0;
-        #10
+        #16700
 
         send_partReg('d11, 'd12, 'd13, 'd14, 'd15, 'd16, 'd17);
 
-        #10
+        #16700
         cs = 'd1;
-        #10
+        #16700
         cs = 'd0;
-        #10
+        #16700
 
         send_allReg('d11, 'd12, 'd13, 'd14, 'd15, 'd16, 'd17, 'd18, 'd19, 'd20);
         
-        #10
+        #16700
         cs = 'd1;
-        #10
+        #16700
 
         $finish;
 

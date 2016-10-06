@@ -26,7 +26,10 @@ module designWrapper(
     output miso,
     input mosi,
     input cs,
-    input reset
+    input reset,
+    output [3:0]bitCount,
+    output slowClkWire,
+    output resOut
     );
     
     wire [7:0]spiInputData;
@@ -39,7 +42,10 @@ module designWrapper(
     wire [7:0]regBOut;
 
     reg slowClk = 'd0;
-    reg [15:0]slowClkCounter;
+    reg [15:0]slowClkCounter = 'd0;
+
+    assign slowClkWire = slowClk;
+    assign resOut = reset;
     
     spiHw spi (
         .clk(slowClk),
@@ -53,7 +59,8 @@ module designWrapper(
         .outData(spiOutputData),
         .valid(registersValid),
         .writeReg(regFileWrite),
-        .regNum(regFileNum)
+        .regNum(regFileNum),
+        .bitCount(bitCount)
     );
 
     regFile regFile (
