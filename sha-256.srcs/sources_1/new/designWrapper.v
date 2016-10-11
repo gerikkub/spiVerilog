@@ -38,6 +38,8 @@ module designWrapper(
     wire regFileWrite;
     wire [6:0]regFileNum;
 
+    wire sclkFilterd;
+
     reg [6:0]regBNum = 'd0;
     wire [7:0]regBOut;
 
@@ -47,11 +49,18 @@ module designWrapper(
     assign slowClkWire = slowClk;
     assign resOut = reset;
     
+    inputFilter sclkFilter (
+        //.clk(slowClk),
+        .clk(CLK100MHZ),
+        .inData(sclk),
+        .outData(sclkFiltered)
+    );
+
     spiHw spi (
-        .clk(slowClk),
-        //.clk(CLK100MHZ),
+        //.clk(slowClk),
+        .clk(CLK100MHZ),
         .reset(reset),
-        .sclk(sclk),
+        .sclk(sclkFiltered),
         .miso(miso),
         .mosi(mosi),
         .cs(cs),
@@ -64,8 +73,8 @@ module designWrapper(
     );
 
     regFile regFile (
-        .clk(slowClk),
-        //.clk(CLK100MHZ),
+        //.clk(slowClk),
+        .clk(CLK100MHZ),
         .reset(reset),
         .regANum(regFileNum),
         .regAOut(spiInputData),
@@ -80,7 +89,7 @@ module designWrapper(
     begin
         slowClkCounter = slowClkCounter + 'd1;
 
-        if (slowClkCounter > 'd50)
+        if (slowClkCounter > 'd0)
         begin
             slowClk = ~slowClk;
             slowClkCounter = 'd0;
